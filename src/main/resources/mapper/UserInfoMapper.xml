@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.exam.pro.mapper.UserInfoMapper">
+	<select id="selectUserInfoById" resultType="com.exam.pro.vo.UserInfoVO">
+		select * from user_info
+		where ui_id = #{uiId}
+	</select>
+	
+	<select id="selectUserInfoForLogin" resultType="com.exam.pro.vo.UserInfoVO">
+		select * from user_info
+		where ui_id = #{uiId}
+		and ui_pwd = #{uiPwd}
+	</select>
+	
+	<insert id="insertUserInfo">
+		insert into user_info(ui_name,ui_id,ui_pwd,ui_birth,
+		ui_phone,ui_email,ui_credat,ui_cretim)
+		values (#{uiName},#{uiId},#{uiPwd},#{uiBirth},
+		#{uiPhone},#{uiEmail},date_format(now(),'%Y%m%d'),
+		date_format(now(),'%H%i%s'))
+	</insert>
+
+	<update id="updateUserInfo">
+		update user_info 
+		set ui_name=#{uiName},ui_pwd=#{uiPwd},ui_birth=#{uiBirth},ui_phone=#{uiPhone},ui_email=#{uiEmail} 
+		where ui_num=#{uiNum}
+	</update>
+
+
+	<delete id="deleteUserInfo">
+		delete from user_info where ui_num=#{uiNum}
+	</delete>
+</mapper>
