@@ -10,6 +10,7 @@ public class BoardInfoVO {
 	private String biFilePath;
 	private String biCredat;
 	private String biCretim;
+	private String uiName;
 	private int biCnt;
 	private int uiNum;
 	private int page = 1;

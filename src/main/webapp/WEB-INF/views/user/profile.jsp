@@ -8,7 +8,8 @@
 <title>Insert title here</title>
 </head>
 <body>
-이름 : ${user.uiId}<br>
+번호 : ${user.uiNum}<br>
+이름 : ${user.uiName}<br>
 생년월일 : ${user.uiBirth}<br>
 전화번호 : ${user.uiPhone}<br>
 이메일 : ${user.uiEmail}<br>

@@ -4,6 +4,24 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.exam.pro.mapper.BoardInfoMapper">
 	<select id="selectBoardInfos" resultType="com.exam.pro.vo.BoardInfoVO">
-		select * from board_info order by bi_num desc
+		select bi.*,ui.ui_name from board_info bi inner join user_info ui on bi.ui_num=ui.ui_num
+		<where>
+			<if test='biTitle!=null and biTitle!=""'>
+				and bi_title like concat('%',#{biTitle},'%')
+			</if>
+			<if test='uiName!=null and uiName!=""'>
+				and ui_name like concat('%',#{uiName},'%')
+			</if>
+		</where>
+		order by bi_num desc
 	</select>
+	
+	<select id="selectBoardInfo" resultType="com.exam.pro.vo.BoardInfoVO">
+		select bi.*,ui.ui_name from board_info bi inner join user_info ui on bi.ui_num=ui.ui_num
+		where bi.bi_num = #{biNum}
+	</select>
+	
+	<update id="updateBoardInfoCnt">
+	update board_info set bi_cnt = bi_cnt+1 where bi_num=#{biNum}
+	</update>
 </mapper>

@@ -1,7 +1,5 @@
 package com.exam.pro.controller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,5 +19,11 @@ public class BoardInfoController {
 	public String getBoards(@ModelAttribute BoardInfoVO board, Model m) {
 		m.addAttribute("page", biService.getBoardInfos(board));
 		return "board/board-list";
+	}
+
+	@GetMapping("/board")
+	public String getBoard(@ModelAttribute BoardInfoVO board, Model m) {
+		m.addAttribute("board",biService.selectBoardInfo(board));
+		return "board/board-view";
 	}
 }

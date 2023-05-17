@@ -51,9 +51,12 @@ public class UserInfoController {
 	
 	@PostMapping("/login")
 	public String getlogin(@ModelAttribute UserInfoVO user,HttpSession session, Model m) {
+		log.info("로그인후의 유저1=======>{}",user);
 		String msg="아이디나 비밀번호가 잘못되었습니다.";
 		String url="/login";
 		if(uiService.login(user, session)) {
+			user= (UserInfoVO) session.getAttribute("user");
+			log.info("로그인후의 유저2=======>{}",user);
 			msg="로그인에 성공하였습니다.";
 			url="/";
 		}
@@ -75,7 +78,8 @@ public class UserInfoController {
 	}
 	
 	@GetMapping("/profile-update")
-	public String goProfileUpdate() {
+	public String goProfileUpdate(UserInfoVO user,HttpSession session) {
+		user= (UserInfoVO) session.getAttribute("user");
 		return "user/profile-update";
 	}
 	
@@ -83,6 +87,8 @@ public class UserInfoController {
 	public String goUpdate(UserInfoVO user, HttpSession session, Model m) {
 		UserInfoVO sessionUser = (UserInfoVO)session.getAttribute("user");
 		user.setUiNum(sessionUser.getUiNum());
+		user.setUiId(sessionUser.getUiId());
+		user.setUiActive(sessionUser.getUiActive());
 		if(uiService.update(user)) {
 			m.addAttribute("msg", "수정 완료되었습니다.");
 			session.setAttribute("user", user);

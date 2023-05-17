@@ -15,8 +15,15 @@ public class BoardInfoService {
 	private BoardInfoMapper biMapper;
 	
 	public PageInfo<BoardInfoVO> getBoardInfos(BoardInfoVO board){
-		PageHelper.startPage(100, 10);
-		return new PageInfo<>(biMapper.selectBoardInfos(board));
+		PageHelper.startPage(board.getPage(), board.getRows());
+		return new PageInfo<>(biMapper.selectBoardInfos(board),10);
 	}
 	
+	public BoardInfoVO selectBoardInfo(BoardInfoVO board){
+		BoardInfoVO boardInfo = biMapper.selectBoardInfo(board);
+		if(boardInfo!=null) {
+			biMapper.updateBoardInfoCnt(boardInfo);
+		}
+		return boardInfo;
+	}
 }
